@@ -2,6 +2,9 @@ package org.cowco.codingchallenge.dictionary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -44,19 +47,45 @@ public class LanguageDictionary {
      * Finds all words in the dictionary that are of the given length
      * Note: we don't throw an exception if the length is <= 0, since our definition
      * of this method's behaviour has covered that eventuality (there are 0 words
-     * with length <= 0, so we just return an empty list)
+     * with length <= 0, so we just return an empty LanguageDictionary).
+     * We return a LanguageDictionary rather than a simple List, so that we can
+     * chain multiple filters
      * 
      * @param length The length of word to find
-     * @return A List of the words with the given length
+     * @return A new LanguageDictionary, with the filtered words.
      */
-    public List<String> getWordsOfLength(int length) {
+    public LanguageDictionary filterByLength(int length) {
         List<String> filtered = new ArrayList<>();
         // Obviously, we don't need to return anything if the length is zero or negative
-        // TODO Could also store the maximum word length, and then short-circuit when
-        // `length` > that value.
         if (length > 0) {
-            filtered = words.stream().filter(word -> word.length() == length).collect(Collectors.toList());
+            filtered = words.stream().filter(word -> word.length() == length).toList();
         }
-        return filtered;
+        LanguageDictionary dict = new LanguageDictionary();
+        dict.words = filtered;
+        return dict;
     }
+
+    /**
+     * Filters out words which have letters *not* in the given string.
+     * For example, the word "full" does *not* match the filter "ull", but *does*
+     * match the filter "lfu".
+     * 
+     * @param letters The letters to filter for; does not matter how many times they
+     *                occur
+     * @return A LanguageDictionary containing the filtered-in words
+     */
+    public LanguageDictionary filterByLetters(String letters) {
+        List<String> filtered = new ArrayList<>();
+        String regex = String.format("[%s]+", letters);
+        if (letters.length() > 0) {
+            Pattern pattern = Pattern.compile(regex);
+            filtered = words.stream().filter(word -> pattern.matcher(word).matches()).toList();
+        }
+        LanguageDictionary dict = new LanguageDictionary();
+        dict.words = filtered;
+        return dict;
+    }
+
+    // TODO Also method to check if any letters (of given list) are missing in the
+    // dict
 }

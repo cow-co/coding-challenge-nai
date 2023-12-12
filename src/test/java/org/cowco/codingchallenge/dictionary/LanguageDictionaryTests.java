@@ -1,7 +1,6 @@
 package org.cowco.codingchallenge.dictionary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class LanguageDictionaryTests {
@@ -13,9 +12,9 @@ public class LanguageDictionaryTests {
         dict.addWord("bye");
         dict.addWord("full");
 
-        List<String> words = dict.getWordsOfLength(4);
+        LanguageDictionary words = dict.filterByLength(4);
 
-        assertEquals(2, words.size());
+        assertEquals(2, words.numWords());
     }
 
     @Test
@@ -26,8 +25,47 @@ public class LanguageDictionaryTests {
         dict.addWord("bye");
         dict.addWord("full");
 
-        List<String> words = dict.getWordsOfLength(0);
+        LanguageDictionary words = dict.filterByLength(0);
 
-        assertEquals(0, words.size());
+        assertEquals(0, words.numWords());
+    }
+
+    @Test
+    public void filtersWordsByLetters() {
+        LanguageDictionary dict = new LanguageDictionary();
+        dict.addWord("null");
+        dict.addWord("hi");
+        dict.addWord("bye");
+        dict.addWord("full");
+
+        LanguageDictionary words = dict.filterByLetters("yeb");
+
+        assertEquals(1, words.numWords());
+    }
+
+    @Test
+    public void filtersWordsByLettersCountDoesNotMatter() {
+        LanguageDictionary dict = new LanguageDictionary();
+        dict.addWord("null");
+        dict.addWord("hi");
+        dict.addWord("bye");
+        dict.addWord("full");
+
+        LanguageDictionary words = dict.filterByLetters("yyebbb");
+
+        assertEquals(1, words.numWords());
+    }
+
+    @Test
+    public void filtersWordsByLettersWithNoMatches() {
+        LanguageDictionary dict = new LanguageDictionary();
+        dict.addWord("null");
+        dict.addWord("hi");
+        dict.addWord("bye");
+        dict.addWord("full");
+
+        LanguageDictionary words = dict.filterByLetters("ull");
+
+        assertEquals(0, words.numWords());
     }
 }
