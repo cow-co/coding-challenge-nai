@@ -15,7 +15,7 @@ public class DictionaryParserTests {
     }
 
     @Test
-    public void parsesDictionaryFileWithEmptyLine() throws IOException {
+    public void parsesDictionaryFileWithWhitespaceLine() throws IOException {
         LanguageDictionary dict = DictionaryParser.parseDictionaryFile("src/test/resources/test-dict-empty-line.txt");
 
         assertEquals(7, dict.numWords());

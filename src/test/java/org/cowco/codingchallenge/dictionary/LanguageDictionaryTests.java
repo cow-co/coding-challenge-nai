@@ -12,9 +12,9 @@ public class LanguageDictionaryTests {
         dict.addWord("bye");
         dict.addWord("full");
 
-        LanguageDictionary words = dict.filterByLength(4);
+        dict.filterByLength(4);
 
-        assertEquals(2, words.numWords());
+        assertEquals(2, dict.numWords());
     }
 
     @Test
@@ -25,9 +25,22 @@ public class LanguageDictionaryTests {
         dict.addWord("bye");
         dict.addWord("full");
 
-        LanguageDictionary words = dict.filterByLength(0);
+        dict.filterByLength(0);
 
-        assertEquals(0, words.numWords());
+        assertEquals(0, dict.numWords());
+    }
+
+    @Test
+    public void filtersWordsWhenGivenLengthNegative() {
+        LanguageDictionary dict = new LanguageDictionary();
+        dict.addWord("null");
+        dict.addWord("hi");
+        dict.addWord("bye");
+        dict.addWord("full");
+
+        dict.filterByLength(-1);
+
+        assertEquals(0, dict.numWords());
     }
 
     @Test
@@ -38,9 +51,9 @@ public class LanguageDictionaryTests {
         dict.addWord("bye");
         dict.addWord("full");
 
-        LanguageDictionary words = dict.filterByLetters("yeb");
+        dict.filterByLetters("yeb");
 
-        assertEquals(1, words.numWords());
+        assertEquals(1, dict.numWords());
     }
 
     @Test
@@ -51,9 +64,9 @@ public class LanguageDictionaryTests {
         dict.addWord("bye");
         dict.addWord("full");
 
-        LanguageDictionary words = dict.filterByLetters("yyebbb");
+        dict.filterByLetters("yyebbb");
 
-        assertEquals(1, words.numWords());
+        assertEquals(1, dict.numWords());
     }
 
     @Test
@@ -64,8 +77,8 @@ public class LanguageDictionaryTests {
         dict.addWord("bye");
         dict.addWord("full");
 
-        LanguageDictionary words = dict.filterByLetters("ull");
+        dict.filterByLetters("ull");
 
-        assertEquals(0, words.numWords());
+        assertEquals(0, dict.numWords());
     }
 }
