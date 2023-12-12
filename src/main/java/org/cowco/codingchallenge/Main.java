@@ -16,7 +16,6 @@ public class Main {
         if (args.length != 3) {
             System.out.println(USAGE); // We only need to print to the console, not to any log files.
         } else {
-            // XXX Just a little thing for testing, we'll get rid of this later.
             try {
                 String dictFile = args[0];
                 Integer dim = Integer.parseInt(args[1]);
@@ -33,7 +32,7 @@ public class Main {
                 GridConstructor grid = new GridConstructor(dict);
                 grid.constructGrid(dim, allowedLetters);
             } catch (IOException ex) {
-                LOGGER.fatal(ex.getMessage());
+                LOGGER.error(ex.getMessage());
             }
         }
     }

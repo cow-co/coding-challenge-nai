@@ -32,3 +32,12 @@ This section contains various notes about the solution design and implementation
   - grid is complete.
 - Otherwise, things are fairly straightforward.
 - Tests are done via JUnit 5. I've covered off the main scenarios and edge cases (that I can think of at least).
+- Logging done via Log4J2
+  - Outputs at `INFO` level to console
+  - Outputs at `DEBUG` level to `output.log`
+- Log levels follow my usual approach:
+  - `DEBUG`: For instrumentation and/or tracking of progress through the code flow
+  - `INFO`: For information that is useful for general operation
+  - `WARN`: For problems that affect only a single record.
+  - `ERROR`: Problems that cause the entire run to fail, but able to recover or exit gracefully.
+  - `FATAL`: Will lead to a crash of the program.

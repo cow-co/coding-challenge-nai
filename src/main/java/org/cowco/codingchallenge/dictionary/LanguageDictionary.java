@@ -67,6 +67,8 @@ public class LanguageDictionary {
         // Obviously, we don't need to return anything if the length is zero or negative
         if (length > 0) {
             words = words.stream().filter(word -> word.length() == length).toList();
+        } else {
+            words = new ArrayList<>();
         }
         return this;
     }
@@ -79,12 +81,12 @@ public class LanguageDictionary {
      * NOTE: Modifies underlying list
      * 
      * @param letters The letters to filter for; does not matter how many times they
-     *                occur
+     *                occur. If empty or null, does not modify the list.
      * @return A LanguageDictionary containing the filtered-in words
      */
     public LanguageDictionary filterByLetters(String letters) {
-        String regex = String.format("[%s]+", letters);
-        if (letters.length() > 0) {
+        if (letters == null || letters.length() > 0) {
+            String regex = String.format("[%s]+", letters);
             Pattern pattern = Pattern.compile(regex);
             words = words.stream().filter(word -> pattern.matcher(word).matches()).toList();
         }

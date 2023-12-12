@@ -81,4 +81,18 @@ public class LanguageDictionaryTests {
 
         assertEquals(0, dict.numWords());
     }
+
+    @Test
+    public void filtersWordsByLettersWithNoLettersProvided() {
+        LanguageDictionary dict = new LanguageDictionary();
+        dict.addWord("null");
+        dict.addWord("hi");
+        dict.addWord("bye");
+        dict.addWord("full");
+        int initialLength = dict.numWords();
+
+        dict.filterByLetters("");
+
+        assertEquals(initialLength, dict.numWords());
+    }
 }

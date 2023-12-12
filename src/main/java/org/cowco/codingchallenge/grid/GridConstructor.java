@@ -7,12 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.cowco.codingchallenge.dictionary.LanguageDictionary;
 
 /**
  * This class handles creating the actual grid of words.
  */
 public class GridConstructor {
+    private static final Logger LOGGER = LogManager.getLogger(LanguageDictionary.class);
+
     private LanguageDictionary dict;
     private int gridDim;
     private List<String> gridContents = new ArrayList<>();
@@ -29,16 +33,20 @@ public class GridConstructor {
      * @param letters The available letters to use
      */
     public void constructGrid(int dimension, String letters) {
-        gridDim = dimension;
-        gridContents = new ArrayList<>();
-        dict.filterByLength(dimension).filterByLetters(letters);
-        
-        if (dict.numWords() > 0) {
-            dict.getWordStream().forEach(word -> generatePrefixMap(word));
-            recursiveGridCreator(0, new ArrayList<>());
-            printGrid();
+        if (letters.length() != dimension * dimension) {
+            LOGGER.error("Wrong number of letters! There should be " + dimension * dimension + " letters but there are actually " + letters.length());
         } else {
-            System.out.println("No words fit the criteria!"); // TODO Handle this properly
+            gridDim = dimension;
+            gridContents = new ArrayList<>();
+            dict.filterByLength(dimension).filterByLetters(letters);
+            
+            if (dict.numWords() > 0) {
+                dict.getWordStream().forEach(word -> generatePrefixMap(word));
+                recursiveGridCreator(0, new ArrayList<>());
+                printGrid();
+            } else {
+                LOGGER.error("No words fit the criteria!");
+            }
         }
     }
 
@@ -88,9 +96,9 @@ public class GridConstructor {
     }
 
     private void printGrid() {
-        System.out.println("The permutation is: ");
+        LOGGER.info("The permutation is: ");
         for (String word : gridContents) {
-            System.out.println(word);
+            LOGGER.info(word);
         }
     }
 }
