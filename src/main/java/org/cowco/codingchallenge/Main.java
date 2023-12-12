@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.cowco.codingchallenge.dictionary.DictionaryParser;
 import org.cowco.codingchallenge.dictionary.LanguageDictionary;
+import org.cowco.codingchallenge.grid.GridConstructor;
 
 public class Main {
     private static final String USAGE = "Usage: java -jar <jar name> {dictionary file path} {grid size} {list of letters to use}";
@@ -14,13 +15,20 @@ public class Main {
         } else {
             // XXX Just a little thing for testing, we'll get rid of this later.
             try {
-                LanguageDictionary dict = DictionaryParser.parseDictionaryFile(args[0]);
-                System.out.println("There are " + dict.numWords() + " words in the dictionary.");
+                String dictFile = args[0];
                 Integer dim = Integer.parseInt(args[1]);
-                dict = dict.filterByLength(dim).filterByLetters(args[2]);
+                String allowedLetters = args[2];
+
+                LanguageDictionary dict = DictionaryParser.parseDictionaryFile(dictFile);
+                System.out.println("There are " + dict.numWords() + " words in the dictionary.");
+                
+                dict = dict.filterByLength(dim).filterByLetters(allowedLetters);
                 System.out.println(
                         "There are " + dict.numWords() + " words in the dictionary after filtering.\nThey are:\n");
                 dict.getWordStream().forEach(word -> System.out.println(word));
+
+                GridConstructor grid = new GridConstructor(dict);
+                grid.constructGrid(dim, allowedLetters);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

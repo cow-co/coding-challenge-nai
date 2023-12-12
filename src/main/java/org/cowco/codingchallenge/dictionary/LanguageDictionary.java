@@ -94,13 +94,8 @@ public class LanguageDictionary {
         dict.words = filtered;
         return dict;
     }
-
-    // XXX This is a pretty bruteforce implementation - can we improve it?
-    // public List<String> formWordsWithGivenCharacters(List<Character> letters) {
-    // Iterator<String> iter = words.iterator();
-    // while (iter.hasNext()) {
-    // String word = iter.next();
-
-    // }
-    // }
+    
+    public boolean doesDictContainWord(String word) {
+        return words.contains(word);
+    }
 }
