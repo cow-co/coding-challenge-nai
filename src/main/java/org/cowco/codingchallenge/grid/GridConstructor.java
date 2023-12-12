@@ -96,7 +96,7 @@ public class GridConstructor {
     }
 
     private void printGrid() {
-        LOGGER.info("The permutation is: ");
+        LOGGER.info("The grid is: ");
         for (String word : gridContents) {
             LOGGER.info(word);
         }
