@@ -1,11 +1,10 @@
 package org.cowco.codingchallenge.dictionary;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class represents a dictionary for a particular language.
@@ -41,6 +40,16 @@ public class LanguageDictionary {
      */
     public int numWords() {
         return words.size();
+    }
+
+    /**
+     * Idea here is to only expose streaming access to the underlying list, which
+     * should help with memory usage/performance.
+     * 
+     * @return The stream of words from the underlying collection
+     */
+    public Stream<String> getWordStream() {
+        return words.stream();
     }
 
     /**
@@ -86,6 +95,12 @@ public class LanguageDictionary {
         return dict;
     }
 
-    // TODO Also method to check if any letters (of given list) are missing in the
-    // dict
+    // XXX This is a pretty bruteforce implementation - can we improve it?
+    // public List<String> formWordsWithGivenCharacters(List<Character> letters) {
+    // Iterator<String> iter = words.iterator();
+    // while (iter.hasNext()) {
+    // String word = iter.next();
+
+    // }
+    // }
 }
