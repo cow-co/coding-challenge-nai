@@ -123,6 +123,7 @@ public class GridConstructor {
      * numbers.
      * 
      * @param availableLetters
+     * @param grid
      * @return
      */
     private boolean isGridValid(String availableLetters, List<String> grid) {
