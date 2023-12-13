@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 public class GridConstructorTests {
     @Test
     public void generatesAValidCombination() {
-        System.out.println("val");
         LanguageDictionary dict = new LanguageDictionary();
         dict.addWord("null");
         dict.addWord("hi");
@@ -64,7 +63,6 @@ public class GridConstructorTests {
     // This one is basically testing edge case stuff
     @Test
     public void generatesEmptyGridWhenDimensionIsZero() {
-        System.out.println("zero");
         LanguageDictionary dict = new LanguageDictionary();
         dict.addWord("null");
         dict.addWord("hi");
@@ -89,7 +87,6 @@ public class GridConstructorTests {
     // This one is basically testing edge case stuff
     @Test
     public void generatesEmptyGridWhenDimensionIsNegative() {
-        System.out.println("Neg");
         LanguageDictionary dict = new LanguageDictionary();
         dict.addWord("null");
         dict.addWord("hi");
